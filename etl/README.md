@@ -5,7 +5,8 @@ This project streams static data from kafka to PostgreSQL database, utilizing th
 - Kafka Connect
 - Schema Registry
 - KSQL
-  No programming language was employed because the entire pipeline can be set up within the Kafka framework.
+
+No programming language was employed because the entire pipeline can be set up within the Kafka framework.
 ## Setup and Configuration
 ### 1. Starting Services:
 Begin by ensuring all the services are up and running with the following command:
@@ -33,6 +34,7 @@ Next, connect to the KSQL server and execute the necessary commands:
 This command instructs KSQL to create streams for both users and jobs. It then transmits them to another topic utilizing avro serialization. Following this, KSQL sets up JDBC Sink Connectors for both users and jobs, which deserialize the data with the avro schema and upsert it into PostgreSQL tables predefined by the postgres service.
 The rationale behind using KSQL for the creation of JDBC Sink Connectors was to avoid sending POST requests to the Kafka Connect server directly from local terminal.
 ### 4. Query Execution:
+Before moving forward to query execution, wait for several seconds so that JDBC Sink Connector can write data into PostgreSQL database.
 The necessary query for the project outcome is embedded within the postgres service. To run the query, provide the desired location as a parameter:
    ``` bash 
    docker-compose exec postgres psql -U postgres -d postgres -v LOCATION='LOC_1295' -f /postgres-query/query.sql
