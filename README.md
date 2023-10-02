@@ -34,6 +34,7 @@ Next, connect to the KSQL server and execute the necessary commands:
 This command instructs KSQL to create streams for both users and jobs. It then transmits them to another topic utilizing avro serialization. Following this, KSQL sets up JDBC Sink Connectors for both users and jobs, which deserialize the data with the avro schema and upsert it into PostgreSQL tables predefined by the postgres service.
 The rationale behind using KSQL for the creation of JDBC Sink Connectors was to avoid sending POST requests to the Kafka Connect server directly from local terminal.
 ### 4. Query Execution:
+Before forwarding to query execution, wait for several seconds so that JDBC Connector can write data into PostgreSQL database.
 The necessary query for the project outcome is embedded within the postgres service. To run the query, provide the desired location as a parameter:
    ``` bash 
    docker-compose exec postgres psql -U postgres -d postgres -v LOCATION='LOC_1295' -f /postgres-query/query.sql
