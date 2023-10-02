@@ -1,0 +1,11 @@
+WITH main AS (
+    SELECT j."JOBCREATEDATE", j."JOBDATE",
+           j."JOBIDENTIFIER", j."JOBSTATUS",
+           j."LOCATION" AS job_loc, j."REVENUE",
+           j."SERVICENAME", j."USERID", u."LOCATION"
+    FROM jobs AS j
+             LEFT JOIN users AS u ON u."USERID"=j."USERID"
+    WHERE u."LOCATION"!=j."LOCATION"
+    AND j."JOBSTATUS"='SUCCESS')
+
+SELECT "USERID" FROM main WHERE main.job_loc= :'LOCATION' AND "REVENUE"!=0 GROUP BY "USERID" ORDER BY SUM("REVENUE") DESC LIMIT 5;
