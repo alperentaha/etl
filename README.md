@@ -5,7 +5,8 @@ This project streams static data from kafka to PostgreSQL database, utilizing th
 - Kafka Connect
 - Schema Registry
 - KSQL
-  No programming language was employed because the entire pipeline can be set up within the Kafka framework.
+
+No programming language was employed because the entire pipeline can be set up within the Kafka framework.
 ## Setup and Configuration
 ### 1. Starting Services:
 Begin by ensuring all the services are up and running with the following command:
