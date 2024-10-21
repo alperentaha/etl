@@ -40,10 +40,3 @@ The necessary query for the project outcome is embedded within the postgres serv
    docker-compose exec postgres psql -U postgres -d postgres -v LOCATION='LOC_1295' -f /postgres-query/query.sql
    ```
 This command retrieves a maximum of five users who haven't registered at a job's location, ordered by the highest revenue generated. Note: jobs that return NO_SUCCESS should not be considered revenue-generating.
-### 5. Additional Questions:
-
-For the first question, if the topic is ready and new jobs arrive properly, this pipeline can process and sink it into PostgreSQL database without problem. However, if I am also responsible for the arrival of new jobs, I would write a Python or Java code that handles and serializes data in the first place. When so, KSQL streams would not be needed.
-
-For the second question, I would create new kafka brokers, and new partitions for the topic so that service doesn't get throttled. However, because having more than one connector may cause problems sinking data into PostgreSQL database, I wouldn't change number of connectors I have. Note that increasing number of jobs arriving to topic may cause resource problem such as memory.
-
-For the third question, if datasets, which may be up to 10 to 20, have valid schemas and the question asked have certain answer, nothing would change apart from resource issues. However, if these datasets have continuous data flow, this means that I may need a solid application for handling loads of data transformation, such as cleaning, enrichment or setting new columns that can be useful for further problems. 
